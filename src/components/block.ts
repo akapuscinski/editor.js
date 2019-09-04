@@ -205,6 +205,10 @@ export default class Block {
     return typeof this.tool.merge === 'function';
   }
 
+  get editable(): boolean {
+    return false;
+  }
+
   /**
    * Check block for emptiness
    * @return {Boolean}

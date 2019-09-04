@@ -12,6 +12,10 @@ export interface BaseTool {
    * For block Tools returns tool`s wrapper
    */
   render(): HTMLElement;
+
+  editable?: boolean
+
+  edit?(): void;
 }
 
 export interface BaseToolConstructable {

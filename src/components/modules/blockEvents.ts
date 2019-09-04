@@ -46,10 +46,21 @@ export default class BlockEvents extends Module {
       case _.keyCodes.ESC:
         this.escapePressed(event);
         break;
+      case _.keyCodes.CTRL:
+        this.modifyBlock(event);
       default:
         this.defaultHandler();
         break;
     }
+  }
+  public modifyBlock(event: KeyboardEvent) {
+    const { BlockManager, BlockSelection, Caret } = this.Editor;
+    const currentBlock = BlockManager.currentBlock;
+
+    if (currentBlock.tool.editable == true) {
+      currentBlock.tool.edit();
+    }
+
   }
 
   /**
