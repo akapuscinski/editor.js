@@ -21,6 +21,8 @@
     <script>
         class BoldPlugin {
             editable = true
+            isEditing = false
+            boldText
 
             constructor({ data, api, config }) {
                 this.data = data
@@ -30,7 +32,7 @@
                 b.contentEditable = 'true';
                 b.innerText = this.data.text
                 b.className = 'ce-header'
-                b.setAttribute
+                boldText = b
                 return b
             }
             save(blockContent) {
@@ -44,8 +46,15 @@
                     title: 'Bold plugin'
                 }
             }
-            edit(){
-                console.log('here')
+            toggleEditing() {
+                isEditing = !isEditing
+                if (isEditing)
+                    renderEditing()
+                else
+                    render()
+            }
+            renderEditing(){
+                
             }
         }
         var editor = new EditorJS({

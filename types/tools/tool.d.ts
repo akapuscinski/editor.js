@@ -15,7 +15,7 @@ export interface BaseTool {
 
   editable?: boolean
 
-  edit?(): void;
+  toggleEditing?(): void;
 }
 
 export interface BaseToolConstructable {

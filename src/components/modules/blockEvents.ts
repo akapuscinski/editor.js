@@ -7,11 +7,22 @@ import SelectionUtils from '../selection';
 
 export default class BlockEvents extends Module {
 
+  public keysPressed: Set<Number> = new Set();
+
   /**
    * All keydowns on Block
    * @param {KeyboardEvent} event - keydown
    */
   public keydown(event: KeyboardEvent): void {
+    this.keysPressed.add(event.keyCode);
+
+    console.log('pressed ' + this.keysPressed);
+
+    if(this.keysPressed.has(_.keyCodes.CTRL) && this.keysPressed.has(_.keyCodes.SHIFT)){
+      this.modifyBlock(event);
+      return;
+    }
+
     /**
      * Run common method for all keydown events
      */
@@ -46,8 +57,6 @@ export default class BlockEvents extends Module {
       case _.keyCodes.ESC:
         this.escapePressed(event);
         break;
-      case _.keyCodes.CTRL:
-        this.modifyBlock(event);
       default:
         this.defaultHandler();
         break;
@@ -58,7 +67,7 @@ export default class BlockEvents extends Module {
     const currentBlock = BlockManager.currentBlock;
 
     if (currentBlock.tool.editable == true) {
-      currentBlock.tool.edit();
+      currentBlock.tool.toggleEditing();
     }
 
   }
@@ -104,6 +113,7 @@ export default class BlockEvents extends Module {
    * - shows conversion toolbar with 85% of block selection
    */
   public keyup(event): void {
+    this.keysPressed.clear();
 
     /**
      * If shift key was pressed some special shortcut is used (eg. cross block selection via shift + arrows)
